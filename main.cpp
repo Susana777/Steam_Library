@@ -6,7 +6,7 @@
 #include "complemento.h"
 
 #define ln "\n\n"
-
+//Qu´pe tanto modifica esotr en el main= ;CAWCWIAODIAWCDwaW
 using namespace std;
 
 //Const max
