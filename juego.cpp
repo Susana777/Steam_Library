@@ -171,7 +171,7 @@ int leerInt(const string &mensaje){
         }
     }
 }
-float leerFloat(const string &mensaje){
+float leerElFloat(const string &mensaje){
     float valor;
     while(true){
         cout<<mensaje;
@@ -186,7 +186,7 @@ float leerFloat(const string &mensaje){
         }
     }
 }
-string leerFecha(const string &mensaje){
+string leerLaFecha(const string &mensaje){
     string _fecha;
     while(true){
         cout<<mensaje;
@@ -201,20 +201,18 @@ string leerFecha(const string &mensaje){
     }
 }
 istream& operator>>(istream &entrada, Juego &var){
-    cin.ignore();
+    cin.ignore(1000,'\n');
     cout<<"Ingresa el nombre del juego: ";
     getline(cin, var.nombre);
-    var.precio = leerFloat("Ingresa el precio del juego: ");
-    var.tamanio = leerFloat("Ingresa el tamanio del juego: ");
+    var.precio = leerElFloat("Ingresa el precio del juego: ");
+    var.tamanio = leerElFloat("Ingresa el tamanio del juego: ");
     cout<<"Ingresa el nivel de gama que requiere el juego: ";
     cin>>var.requisitos;
     cin.ignore(1000,'\n');
     cout<<"Ingresa el grupo desarrollador del videojuego: ";
     getline(cin, var.desarrolladora);
-    cout<<"Ingresa la fecha en formato 00/00/000: ";
-    cin>>var.fecha_lanzamiento;
+    var.fecha_lanzamiento = leerLaFecha("Ingresa la fecha en formato 00/00/000: ");
     cout<<"Ingresa el genero del juego: ";
-    cin.ignore(1000,'\n');
     getline(cin, var.genero);
     var.horas_jugadas=0;
     var.logros = leerInt("Ingresa la cantidad de logros que tiene el juego: ");
