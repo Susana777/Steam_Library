@@ -6,7 +6,7 @@
 #include "complemento.h"
 
 #define ln "\n\n"
-//Qu´pe tanto modifica esotr en el main= ;CAWCWIAODIAWCDwaW
+
 using namespace std;
 
 //Const max
@@ -26,8 +26,8 @@ int main()
     int cont2 = 0;
     string busqueda1;
     string busqueda2;
-    int index1 = -1;
-    int index2 = -1;
+    int index1;
+    int index2;
     string formato;
     char confirmacion;
     int horas;
@@ -36,10 +36,12 @@ int main()
     vector<Juego> juegos(max_juegos);
     //Vector Bibliteca de completentos
     vector<Complemento> complementos(max_juegos);
-    vector<Juego>* J = &juegos;     //Puntero de la bibliteca de complementos
+    vector<Juego>* J = &juegos;     //Puntero
 
     //Ciclo principal
     do{
+        index1 = -1;
+        index2 = -1;
         //Llamada a la funcion menu
         opcion = menu();
         //Verificador de opcion
@@ -67,21 +69,21 @@ int main()
             case 2:
                 cout<<"---------------Mostrar biblioteca---------------"<<ln;
                 //Checa que no este vacia la bibliteca
-                if(J->empty()){
+                if(cont == 0){
                     cout<<"La biblioteca esta vacia.";
                 } else {
                     for(int i=0; i<cont; i++){
-                        cout<<"---"<<juegos[i].getNombre()<<endl;
+                        cout<<"---"<<(*J)[i].getNombre()<<endl;
                     }
                 }
                 cout<<ln;
 
                 cout<<"---------------Mostrar biblioteca de complementos---------------"<<ln;
                 //Checa que no este vacia la bibliteca
-                if(complementos.empty()){
+                if(cont2 == 0){
                     cout<<"La biblioteca esta vacia.";
                 } else {
-                    for(int i=0; i<cont; i++){
+                    for(int i=0; i<cont2; i++){
                         cout<<"---"<<complementos[i].getNombre()<<endl;
                     }
                 }
@@ -191,8 +193,8 @@ int main()
             //
             //6.-Jugar un videojuego
             case 6:
-                if(J->empty()){      //Checa que no este vacia la bibliteca
-                    cout<<"\nLa biblioteca esta vacia, skill issue.";
+                if(cont == 0){      //Checa que no este vacia la bibliteca
+                    cout<<"\nLa biblioteca esta vacia.";
                 } else {                    //Si no esta vacia entonces:
                     cout<<"---------------Jugar un videojuego---------------"<<ln;
                     cout<<"Cual juego quieres jugar?\n";
@@ -212,6 +214,7 @@ int main()
                         cout<<"\nCuantas horas quieres jugarlo?: ";
                         cin>>horas;
                         juegos[index1] += horas;
+                        juegos[index1].ASCII();
                     } else {
                         cout<<"No se encontro el juego o lo escribiste mal.";
                     }
@@ -240,6 +243,10 @@ int main()
                     cin.ignore();
                     cin>>confirmacion;
                     if(confirmacion == 's'){
+                        for(int i = index1; i<cont-1; i++){
+                            juegos[i] = juegos[i + 1];
+                        }
+                        cont--;
                         cout<<"El juego "<<juegos[index1].getNombre()<<" se ha eliminado.";
                     } else if(confirmacion == 'n') {
                         cout<<"Se cancelo el borrado del juego.";
