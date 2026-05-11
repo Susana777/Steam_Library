@@ -1,223 +1,46 @@
-#include "juego.h"
+#ifndef JUEGO_H
+#define JUEGO_H
+#include "aplicacion.h"
 #include <iostream>
 #include <string>
-#include "aplicacion.h"
 
 using namespace std;
 
-//Constructores
-Juego::Juego() : Aplicacion()
+class Juego : public Aplicacion
 {
-    genero = "sim";
-    horas_jugadas = 0;
-    logros = 0;
-    logros_obtenidos = 0;
-}
-Juego::Juego(string nombre, float precio, float tamanio, string requisitos, string desarrolladora, string fecha_lanzamiento,
-             string genero, int horas_jugadas, int logros, int logros_obtenidos) : Aplicacion(nombre, precio, tamanio, requisitos, desarrolladora, fecha_lanzamiento){
-    this->genero = genero;
-    this->horas_jugadas = horas_jugadas;
-    this->logros = logros;
-    this->logros_obtenidos = logros_obtenidos;
-}
-//Destructor
-Juego::~Juego()
-{
-    //dtor
-}
-//Getters y setters
-string Juego::getGenero(void){
-    return genero;
-}
-void Juego::setGenero(string genero){
-    this->genero = genero;
-}
-int Juego::getHoras_jugadas(void){
-    return horas_jugadas;
-}
-void Juego::setHoras_jugadas(int horas_jugadas){
-    this->horas_jugadas = horas_jugadas;
-}
-int Juego::getLogros(void){
-    return logros;
-}
-void Juego::setLogros(int logros){
-    this->logros = logros;
-}
-int Juego::getLogros_obtenidos(void){
-    return logros_obtenidos;
-}
-void Juego::setLogros_obtenidos(int logros_obtenidos){
-    this->logros_obtenidos = logros_obtenidos;
-}
-//Metodos
-void Juego::ASCII() const{
-    cout<<"  /$$$$$$   /$$$$$$  /$$      /$$ /$$$$$$ /$$   /$$  /$$$$$$\n";
-    cout<<" /$$__  $$ /$$__  $$| $$$    /$$$|_  $$_/| $$$ | $$ /$$__  $$\n";
-    cout<<"| $$  \\__/| $$  \\ $$| $$$$  /$$$$  | $$  | $$$$| $$| $$  \\__/\n";
-    cout<<"| $$ /$$$$| $$$$$$$$| $$ $$/$$ $$  | $$  | $$ $$ $$| $$ /$$$$\n";
-    cout<<"| $$|_  $$| $$__  $$| $$  $$$| $$  | $$  | $$  $$$$| $$|_  $$\n";
-    cout<<"| $$  \\ $$| $$  | $$| $$\\  $ | $$  | $$  | $$\\  $$$| $$  \\ $$\n";
-    cout<<"|  $$$$$$/| $$  | $$| $$ \\/  | $$ /$$$$$$| $$ \\  $$|  $$$$$$/\n";
-    cout<<" \\______/ |__/  |__/|__/     |__/|______/|__/  \\__/ \\______/\n";
-}
-//Sobrecarga de operadores
-//Jugar con parámetro de horas, Actualizar logros en base a cada 4 horas
-Juego Juego::operator+(const int &var){
-    Juego aux = *this;   //Copia todo lo del objeto
-    aux.horas_jugadas = this->horas_jugadas + var;
-    aux.logros_obtenidos = aux.horas_jugadas/4;
-    //En caso de que la medida anterior de logros se pase:
-    if(logros_obtenidos>logros){
-        logros_obtenidos = logros;
-    } else{
-        cout<<"\nHas obtenido "<<aux.logros_obtenidos - this->logros_obtenidos<<" nuevos logros!"<<endl;
-    }
-    return aux;
-}
-//""
-Juego Juego::operator+=(const int &var){
-    this->horas_jugadas += var;
-    //Para checar la diferencia
-    int diferencia = this->logros_obtenidos;
-    //Y ya
-    this->logros_obtenidos += this->horas_jugadas/4;
-    if(this->logros_obtenidos > this->logros){
-        this->logros_obtenidos = this->logros;
-    } else {
-        cout<<"\nHas obtenido "<<this->logros_obtenidos - diferencia<<" nuevos logros!"<<endl;
-    }
-    return *this;
-}
-//Mostrar cuanto tiempo tienes jugado en anios, meses, semanas, dias, minutos o segundos
-void Juego::operator%(const string &var){
-    float tiempo=0;
-    if(var == "anios"){
-            tiempo = horas_jugadas/8760;
-            cout<<"El tiempo que tienes jugado en anios es de "<<tiempo<<" anios."<<endl;
-    } else if(var == "meses"){
-            tiempo = horas_jugadas/720;
-            cout<<"El tiempo que tienes jugado en meses es de "<<tiempo<<" meses."<<endl;
-    } else if(var == "semanas"){
-            tiempo = horas_jugadas/168;
-            cout<<"El tiempo que tienes jugado en semanas es de "<<tiempo<<" semanas."<<endl;
-    } else if(var == "dias"){
-            tiempo = horas_jugadas/24;
-            cout<<"El tiempo que tienes jugado en dias es de "<<tiempo<<" dias."<<endl;
-    } else if(var == "horas"){
-            cout<<"El tiempo que tienes jugadas en horas es de "<<horas_jugadas<<" horas."<<endl;
-    } else if(var == "minutos"){
-            tiempo = horas_jugadas*60;
-            cout<<"El tiempo que tienes jugado en minutos es de "<<tiempo<<" minutos."<<endl;
-    } else if(var == "segundos"){
-            tiempo = horas_jugadas*3600;
-            cout<<"El tiempo que tienes jugado en segundos es de "<<tiempo<<" segundos."<<endl;
-    } else{
-        cout<<"Opcion invalida."<<endl;
-    }
-}
-//Mostrar si 2 juegos son del mismo genero
-bool Juego::operator==(Juego const &var) const{
-    return (genero == var.genero);
-}
-//Mostar entre 2 juegos cuál tiene más horas
-void Juego::operator<(Juego const &var) const{
-    if(horas_jugadas>var.horas_jugadas){
-        cout<<endl<<nombre<<" tiene mas horas de juego ("<<horas_jugadas<<") que "<<var.nombre<<" ("<<var.horas_jugadas<<")."<<endl;
-    } else if(horas_jugadas==var.horas_jugadas){
-        cout<<"\nAmbos juegos tienen las mismas horas de juego ("<<horas_jugadas<<")."<<endl;
-    } else {
-        cout<<endl<<var.nombre<<" tiene más horas de juego ("<<var.horas_jugadas<<") que "<<nombre<<" ("<<horas_jugadas<<")."<<endl;
-    }
-}
-//Mostrar entre 2 juegos cuál está más cerca que platinarse y jugarlo
-void Juego::operator!(){
-    if(logros_obtenidos == logros){
-        cout<<"\n\nESTE JUEGO ESTA PLATINADO!!!"<<endl;
-        string str = " .-=========-.\n";
-        str+=" \\'-=======-'/\n";
-        str+=" _|   .=.   |_\n";
-        str+="((|  {{1}}  |))\n";
-        str+=" \\|   /|\\   |/\n";
-        str+="  \\__ '`' __/\n";
-        str+="    _`) (`_\n";
-        str+="  _/_______\\_\n";
-        str+=" /___________\\\n";
-        cout<<str<<endl;
-    } else {
-        cout<<"\n\nEste juego aun no esta platinado, te faltan "<<((logros*4)-horas_jugadas)<<" horas para platinarlo."<<endl;
-    }
-}
- // -nombre,  precio,-tamanio,  r-equisitos,  -desarrolladora, -fecha, genero, -horas_jugadas,  logros, -logros_obtenidos
-ostream& operator<<(ostream &salida, const Juego &var){
-    salida<<"Nombre: "<<var.nombre<<"\nGenero: "<<var.genero<<"\nHoras jugadas: "<<var.horas_jugadas<<"\nLogros: "
-    <<var.logros<<"\nLogros obtenidos: "<<var.logros_obtenidos<<"\n\n\nPrecio: $"<<var.precio<<"\nTamanio: "<<var.tamanio<<" GB"
-    <<"\nRequisitos: Gama "<<var.requisitos<<"\nDesarrolladora: "<<var.desarrolladora<<"\nFecha de lanzamiento: "<<var.fecha_lanzamiento;
-    return salida;
-}
-////////////////Checa que lo que sea que entre en los cin, sean valores correspondientes
-int leerInt(const string &mensaje){
-    int valor;
-    while(true){
-        cout<<mensaje;
-        cin>>valor;
-        if(cin.fail()){
-            cout<<"Valor invalido, ingresa denuevo porfavor.\n";
-            cin.clear();
-            cin.ignore(1000, '\n');
-        } else {
-            cin.ignore(1000, '\n');
-            return valor;
-        }
-    }
-}
-float leerFloat(const string &mensaje){
-    float valor;
-    while(true){
-        cout<<mensaje;
-        cin>>valor;
-        if(cin.fail()){
-            cout<<"Valor invalido, error al guardar.\n";
-            cin.clear();
-            cin.ignore(1000, '\n');
-        } else {
-            cin.ignore(1000, '\n');
-            return valor;
-        }
-    }
-}
-string leerFecha(const string &mensaje){
-    string _fecha;
-    while(true){
-        cout<<mensaje;
-        getline(cin, _fecha);
-        if(_fecha.length() > 10){
-            cout<<"Formato invalido, ingresa denuevo porfavor.\n";
-            cin.clear();
-        } else {
-            cin.clear();
-            return _fecha;
-        }
-    }
-}
-istream& operator>>(istream &entrada, Juego &var){
-    cin.ignore();
-    cout<<"Ingresa el nombre del juego: ";
-    getline(cin, var.nombre);
-    var.precio = leerFloat("Ingresa el precio del juego: ");
-    var.tamanio = leerFloat("Ingresa el tamanio del juego: ");
-    cout<<"Ingresa el nivel de gama que requiere el juego: ";
-    cin>>var.requisitos;
-    cin.ignore(1000,'\n');
-    cout<<"Ingresa el grupo desarrollador del videojuego: ";
-    getline(cin, var.desarrolladora);
-    cout<<"Ingresa la fecha en formato 00/00/000: ";
-    cin>>var.fecha_lanzamiento;
-    cout<<"Ingresa el genero del juego: ";
-    cin.ignore(1000,'\n');
-    getline(cin, var.genero);
-    var.horas_jugadas=0;
-    var.logros = leerInt("Ingresa la cantidad de logros que tiene el juego: ");
-    var.logros_obtenidos=0;
-    return entrada;
-}
+    //Atributos
+    private:
+        string genero;
+        int horas_jugadas;
+        int logros;
+        int logros_obtenidos;
+    public:
+        //Constructores
+        Juego();
+        //Cargado
+        Juego(string, float, float, string, string, string, string, int, int, int);
+        //Destructor
+        virtual ~Juego();
+        //Getters y setters
+        string getGenero(void);
+        void setGenero(string);
+        int getHoras_jugadas(void);
+        void setHoras_jugadas(int);
+        int getLogros(void);
+        void setLogros(int);
+        int getLogros_obtenidos(void);
+        void setLogros_obtenidos(int);
+        //Metodos
+        virtual void ASCII() const override;
+        //Sobrecarga de operadores
+        Juego operator+(const int &);    //Jugar con parámetro de horas, Actualizar logros en base a cada 4 horas
+        Juego operator+=(const int &);   //""
+        void operator%(const string &);   //Mostrar cuanto tiempo tienes jugado en meses, semanas, dias, minutos o segundos
+        bool operator==(Juego const &) const;  //Mostrar si 2 juegos son del mismo genero
+        void operator<(Juego const &) const;   //Mostar entre 2 juegos cuál tiene más horas
+        void operator!();                   //Muestra si un juego esta platinado o no
+        friend ostream& operator<<(ostream &, const Juego &);
+        friend istream& operator>>(istream &, Juego &);
+};
+
+#endif // JUEGO_H
