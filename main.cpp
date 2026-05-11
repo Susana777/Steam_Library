@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <windows.h>
 #include "aplicacion.h"
 #include "juego.h"
 #include "complemento.h"
@@ -14,8 +15,7 @@ const int max_juegos = 100;
 
 ////Prototipos
 int menu();
-
-
+void limpiarBuffer();
 
 ////Main
 int main()
@@ -261,19 +261,28 @@ int main()
                 break;
             case 8:
                 cout<<"---------------Agregar complemento---------------"<<ln;
-                    if(cont2 < max_juegos){
-                        cin>>complementos[cont2];
-                        cout<<"Complemento agregado."<<ln;
-                        cont2++;
-                        system("pause");
-                    } else {
-                        cout<<"Biblioteca llena."<<ln;
-                        system("pause");
-                    }
+                if(cont2 < max_juegos){
+                    cin>>complementos[cont2];
+                    cout<<"Complemento agregado."<<ln;
+                    cont2++;
+                    system("pause");
+                } else {
+                    cout<<"Biblioteca llena."<<ln;
+                    system("pause");
+                }
                 break;
             //En caso de que la opcion ingresada sea invalida
+            case 9:
+                cout<<"Saliendo..........."<<endl;
+                for(int i=0; i<5; i++){
+                    Sleep(300);
+                    cout<<"..................."<<endl;
+                }
+                opcion = 0;
+                break;
             default:
                 cout<<"Opcion invalida."<<endl;
+                limpiarBuffer();
                 opcion = 1;
                 system("pause");
                 break;
@@ -296,8 +305,13 @@ int menu(){
     cout<<"6.-Jugar un videojuego."<<endl;   //  operator+   operator ++
     cout<<"7.-Eliminar videojuego de la biblioteca!."<<endl;
     cout<<"8.-Agregar un complemento."<<endl;
+    cout<<"9.-Salir."<<endl;
     cout<<"Opcion: ";
     cin>>opcion_menu;
     system("cls");
     return opcion_menu;
+}
+void limpiarBuffer(){
+    cin.clear();
+    cin.ignore(1000, '\n');
 }
