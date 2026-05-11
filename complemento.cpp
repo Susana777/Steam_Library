@@ -46,27 +46,51 @@ void Complemento::ASCII () const{
     cout<<"|_______/ |________/ \\______/\n";
 
 }
-
+///////////////Validadores
+float leerFloat(const string &mensaje){
+    float valor;
+    while(true){
+        cout<<mensaje;
+        cin>>valor;
+        if(cin.fail()){
+            cout<<"Valor invalido, error al guardar.\n";
+            cin.clear();
+            cin.ignore(1000, '\n');
+        } else {
+            cin.ignore(1000, '\n');
+            return valor;
+        }
+    }
+}
+string leerFecha(const string &mensaje){
+    string _fecha;
+    while(true){
+        cout<<mensaje;
+        getline(cin, _fecha);
+        if(_fecha.length() > 10){
+            cout<<"Formato invalido, ingresa denuevo porfavor.\n";
+            cin.clear();
+        } else {
+            cin.clear();
+            return _fecha;
+        }
+    }
+}
 istream& operator>>(istream& entrada, Complemento& var){
-    cin.ignore();
+    cin.ignore(1000,'\n');
     cout<<"Ingresa el nombre del complemento: ";
     getline(cin, var.nombre);
-    cout<<"Ingresa el precio del complemento: ";
-    cin>>var.precio;
-    cout<<"Ingresa el tamanio del complemento: ";
-    cin>>var.tamanio;
+    var.precio = leerFloat("Ingresa el precio del complemento: ");
+    var.tamanio = leerFloat("Ingresa el tamanio del complemento: ");
     cout<<"Ingresa el nivel de gama que requiere el complemento: ";
     cin>>var.requisitos;
-    cin.ignore();
+    cin.ignore(1000,'\n');
     cout<<"Ingresa el grupo desarrollador del complemento: ";
     getline(cin, var.desarrolladora);
-    cout<<"Ingresa la fecha en formato 00/00/000: ";
-    cin>>var.fecha_lanzamiento;
-    cin.ignore();
+    var.fecha_lanzamiento = leerFecha("Ingresa la fecha en formato 00/00/000: ");
     cout<<"Ingresa el tipo de complemento(expansion/cosmetico): ";
-    cin>>var.tipo;
+    getline(cin, var.tipo);
     cout<<"Ingresa el juego origen: ";
-    cin>>var.juego_origen;
-
+    getline(cin, var.juego_origen);
     return entrada;
 }
