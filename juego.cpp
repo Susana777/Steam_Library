@@ -52,7 +52,14 @@ void Juego::setLogros_obtenidos(int logros_obtenidos){
 }
 //Metodos
 void Juego::ASCII() const{
-    cout<<"Hola papu";
+    cout<<"  /$$$$$$   /$$$$$$  /$$      /$$ /$$$$$$ /$$   /$$  /$$$$$$\n";
+    cout<<" /$$__  $$ /$$__  $$| $$$    /$$$|_  $$_/| $$$ | $$ /$$__  $$\n";
+    cout<<"| $$  \\__/| $$  \\ $$| $$$$  /$$$$  | $$  | $$$$| $$| $$  \\__/\n";
+    cout<<"| $$ /$$$$| $$$$$$$$| $$ $$/$$ $$  | $$  | $$ $$ $$| $$ /$$$$\n";
+    cout<<"| $$|_  $$| $$__  $$| $$  $$$| $$  | $$  | $$  $$$$| $$|_  $$\n";
+    cout<<"| $$  \\ $$| $$  | $$| $$\\  $ | $$  | $$  | $$\\  $$$| $$  \\ $$\n";
+    cout<<"|  $$$$$$/| $$  | $$| $$ \\/  | $$ /$$$$$$| $$ \\  $$|  $$$$$$/\n";
+    cout<<" \\______/ |__/  |__/|__/     |__/|______/|__/  \\__/ \\______/\n";
 }
 //Sobrecarga de operadores
 //Jugar con parámetro de horas, Actualizar logros en base a cada 4 horas
