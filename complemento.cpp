@@ -36,7 +36,15 @@ void Complemento::setJuego_origen(string juego_origen){
 }
 //Metodos
 void Complemento::ASCII () const{
-    cout << "hola paputs";
+    cout<<" /$$$$$$$  /$$        /$$$$$$\n";
+    cout<<"| $$__  $$| $$       /$$__  $$\n";
+    cout<<"| $$  \\ $$| $$      | $$  \\__/\n";
+    cout<<"| $$  | $$| $$      | $$\n";
+    cout<<"| $$  | $$| $$      | $$\n";
+    cout<<"| $$  | $$| $$      | $$    $$\n";
+    cout<<"| $$$$$$$/| $$$$$$$$|  $$$$$$/\n";
+    cout<<"|_______/ |________/ \\______/\n";
+
 }
 
 istream& operator>>(istream& entrada, Complemento& var){
