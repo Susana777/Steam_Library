@@ -155,27 +155,69 @@ ostream& operator<<(ostream &salida, const Juego &var){
     <<"\nRequisitos: Gama "<<var.requisitos<<"\nDesarrolladora: "<<var.desarrolladora<<"\nFecha de lanzamiento: "<<var.fecha_lanzamiento;
     return salida;
 }
+////////////////Checa que lo que sea que entre en los cin, sean valores correspondientes
+int leerInt(const string &mensaje){
+    int valor;
+    while(true){
+        cout<<mensaje;
+        cin>>valor;
+        if(cin.fail()){
+            cout<<"Valor invalido, ingresa denuevo porfavor.\n";
+            cin.clear();
+            cin.ignore(1000, '\n');
+        } else {
+            cin.ignore(1000, '\n');
+            return valor;
+        }
+    }
+}
+float leerFloat(const string &mensaje){
+    float valor;
+    while(true){
+        cout<<mensaje;
+        cin>>valor;
+        if(cin.fail()){
+            cout<<"Valor invalido, error al guardar.\n";
+            cin.clear();
+            cin.ignore(1000, '\n');
+        } else {
+            cin.ignore(1000, '\n');
+            return valor;
+        }
+    }
+}
+string leerFecha(const string &mensaje){
+    string _fecha;
+    while(true){
+        cout<<mensaje;
+        getline(cin, _fecha);
+        if(_fecha.length() > 10){
+            cout<<"Formato invalido, ingresa denuevo porfavor.\n";
+            cin.clear();
+        } else {
+            cin.clear();
+            return _fecha;
+        }
+    }
+}
 istream& operator>>(istream &entrada, Juego &var){
     cin.ignore();
     cout<<"Ingresa el nombre del juego: ";
     getline(cin, var.nombre);
-    cout<<"Ingresa el precio del juego: ";
-    cin>>var.precio;
-    cout<<"Ingresa el tamanio del juego: ";
-    cin>>var.tamanio;
+    var.precio = leerFloat("Ingresa el precio del juego: ");
+    var.tamanio = leerFloat("Ingresa el tamanio del juego: ");
     cout<<"Ingresa el nivel de gama que requiere el juego: ";
     cin>>var.requisitos;
-    cin.ignore();
+    cin.ignore(1000,'\n');
     cout<<"Ingresa el grupo desarrollador del videojuego: ";
     getline(cin, var.desarrolladora);
     cout<<"Ingresa la fecha en formato 00/00/000: ";
     cin>>var.fecha_lanzamiento;
     cout<<"Ingresa el genero del juego: ";
-    cin.ignore();
+    cin.ignore(1000,'\n');
     getline(cin, var.genero);
     var.horas_jugadas=0;
-    cout<<"Ingresa la cantidad de logros que tiene el juego: ";
-    cin>>var.logros;
+    var.logros = leerInt("Ingresa la cantidad de logros que tiene el juego: ");
     var.logros_obtenidos=0;
     return entrada;
 }
