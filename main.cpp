@@ -240,7 +240,6 @@ int main()
                 }
                 if(index1 != -1){
                     cout<<"Estas seguro de querer borrarlo? (s/n): ";
-                    cin.ignore();
                     cin>>confirmacion;
                     if(confirmacion == 's'){
                         for(int i = index1; i<cont-1; i++){
